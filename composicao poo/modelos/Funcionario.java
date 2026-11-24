@@ -8,7 +8,7 @@ public class Funcionario extends Pessoa implements calculos{
     private double salario;
 
     // ja define o salario automaticamente ao criar o funcionario
-    public Funcionario(TpFunc funcao, String nome, int cpf, int telefone){
+    public Funcionario(TpFunc funcao, String nome, long cpf, long telefone){
         super(nome, cpf, telefone);
         this.funcao = funcao;
         defineValor();
@@ -19,6 +19,7 @@ public class Funcionario extends Pessoa implements calculos{
     }
     public void setFuncao(TpFunc funcao){
         this.funcao = funcao;
+        defineValor();
     }
     public double getSalario(){
         return salario;
@@ -29,7 +30,7 @@ public class Funcionario extends Pessoa implements calculos{
 
     // atribui o salario de acordo com o cargo
     public void defineValor(){
-        if(this.funcao == TpFunc.Adimnistrador){
+        if(this.funcao == TpFunc.Administrador){
             this.salario = 2400;
         }
         if(this.funcao == TpFunc.Faxineiro){

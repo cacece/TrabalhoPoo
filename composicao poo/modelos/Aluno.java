@@ -6,7 +6,7 @@ import composicao.Plano;
 public class Aluno extends Pessoa {
     private Plano plano;
 
-    public Aluno (Plano plano, String nome, int cpf, int telefone){
+    public Aluno (Plano plano, String nome, long cpf, long telefone){
         super(nome, cpf, telefone);
         this.plano = plano;
     }

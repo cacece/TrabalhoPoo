@@ -3,20 +3,20 @@ package modelos;
 // classe base abstrata com os dados comuns de aluno e funcionario
 public abstract class Pessoa{
     private String nome;
-    private int cpf;
-    private int telefone;
+    private long cpf;
+    private long telefone;
 
-    public Pessoa(String nome, int cpf, int telefone){
+    public Pessoa(String nome, long cpf, long telefone){
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
     }
 
-    public int getCpf() {
+    public long getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 
@@ -28,11 +28,11 @@ public abstract class Pessoa{
         this.nome = nome;
     }
 
-    public int getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(long telefone) {
         this.telefone = telefone;
     }
 

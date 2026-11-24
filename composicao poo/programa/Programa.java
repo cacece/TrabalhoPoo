@@ -26,7 +26,7 @@ public class Programa{
         ControleFinanceiro controleFinanceiro = new ControleFinanceiro(financeiro);
 
         // 7 Funcionários iniciais (cobrindo as funções do enum TpFunc)
-        funcionarios.add(new Funcionario(TpFunc.Adimnistrador, "Roberto Almeida", 101202303, 991112222));
+        funcionarios.add(new Funcionario(TpFunc.Administrador, "Roberto Almeida", 101202303, 991112222));
         funcionarios.add(new Funcionario(TpFunc.Instrutor, "Fernanda Costa", 202303404, 992223333));
         funcionarios.add(new Funcionario(TpFunc.Recepcionista, "Juliana Mendes", 303404505, 993334444));
         funcionarios.add(new Funcionario(TpFunc.Faxineiro, "Carlos Silva", 404505606, 994445555));
@@ -60,31 +60,72 @@ public class Programa{
                     int opcao2 = sc.nextInt();
                     switch(opcao2){
                         case 1:
+                            sc.nextLine();
                             System.out.println("Digite o nome do funcionario:");
-                            String nome = sc.next();
+                            String nome = sc.nextLine();
                             System.out.println("Digite o cpf do funcionario:");
-                            int cpf = sc.nextInt();
+                            long cpf = sc.nextLong();
                             System.out.println("Digite o telefone do funcionario:");
-                            int telefone = sc.nextInt();
-                            System.out.println("Digite a função do funcionario (Administrador, Faxineiro, Instrutor, Recepcionista):");
-                            String funcao = sc.next();
-                            TpFunc funcaoEnum = TpFunc.valueOf(funcao);
+                            long telefone = sc.nextLong();
+                            TpFunc funcaoEnum = null;
+                            while(funcaoEnum == null){
+                                System.out.println("Digite a função do funcionario: 1-Administrador 2-Faxineiro 3-Instrutor 4-Recepcionista");
+                                if(sc.hasNextInt()){
+                                    int opcaoFuncao = sc.nextInt();
+                                    switch(opcaoFuncao){
+                                        case 1:
+                                            funcaoEnum = TpFunc.Administrador;
+                                            break;
+                                        case 2:
+                                            funcaoEnum = TpFunc.Faxineiro;
+                                            break;
+                                        case 3:
+                                            funcaoEnum = TpFunc.Instrutor;
+                                            break;
+                                        case 4:
+                                            funcaoEnum = TpFunc.Recepcionista;
+                                            break;
+                                        default:
+                                            System.out.println("Essa opção não existe, tente novamente.");
+                                    }
+                                } else {
+                                    sc.next();
+                                    System.out.println("Essa opção não existe, tente novamente.");
+                                }
+                            }
                             funcionarios.add(new Funcionario(funcaoEnum, nome, cpf, telefone));
                             funcionarios.sort(Comparator.comparing(Funcionario::getNome, String.CASE_INSENSITIVE_ORDER));
                             break;
                 case 2:
+                            sc.nextLine();
                             System.out.println("Digite o nome do aluno:");
-                            String nomeAluno = sc.next();
+                            String nomeAluno = sc.nextLine();
                             System.out.println("Digite o cpf do aluno:");
-                            int cpfAluno = sc.nextInt();
+                            long cpfAluno = sc.nextLong();
                             System.out.println("Digite o telefone do aluno:");
-                            int telefoneAluno = sc.nextInt();
-                            System.out.println("Digite o plano do aluno (Standard, Pro):");
-                            String p = sc.next();
-                            TpPlano planoEnum = TpPlano.valueOf(p);
-                            System.out.println("Digite o tipo de pagamento do aluno (Debito, Credito, Pix):");
-                            String t = sc.next();
-                            TpPag tipoPagamento = TpPag.valueOf(t);
+                            long telefoneAluno = sc.nextLong();
+                            TpPlano planoEnum = null;
+                            while(planoEnum == null){
+                                System.out.println("Digite o plano do aluno (Standard, Pro):");
+                                String p = sc.next();
+                                p = p.substring(0, 1).toUpperCase() + p.substring(1).toLowerCase();
+                                try{
+                                    planoEnum = TpPlano.valueOf(p);
+                                }catch(IllegalArgumentException e){
+                                    System.out.println("Essa opção não existe, tente novamente.");
+                                }
+                            }
+                            TpPag tipoPagamento = null;
+                            while(tipoPagamento == null){
+                                System.out.println("Digite o tipo de pagamento do aluno (Debito, Credito, Pix):");
+                                String t = sc.next();
+                                t = t.substring(0, 1).toUpperCase() + t.substring(1).toLowerCase();
+                                try{
+                                    tipoPagamento = TpPag.valueOf(t);
+                                }catch(IllegalArgumentException e){
+                                    System.out.println("Essa opção não existe, tente novamente.");
+                                }
+                            }
                             Plano plano = new Plano(tipoPagamento, planoEnum);
                             alunos.add(new Aluno(plano, nomeAluno, cpfAluno, telefoneAluno));
                             alunos.sort(Comparator.comparing(Aluno::getNome, String.CASE_INSENSITIVE_ORDER));
@@ -98,18 +139,42 @@ public class Programa{
                     switch(opcao3){
                         case 1:
                             System.out.println("Digite o cpf do funcionario que deseja alterar:");
-                            int cpfAlterarFuncionario = sc.nextInt();
+                            long cpfAlterarFuncionario = sc.nextLong();
                             for(int i = 0; i < funcionarios.size(); i++){
                                 if(funcionarios.get(i).getCpf() == cpfAlterarFuncionario){
+                                    sc.nextLine();
                                     System.out.println("Digite o novo nome do funcionario:");
-                                    String novoNome = sc.next();
+                                    String novoNome = sc.nextLine();
                                     funcionarios.get(i).setNome(novoNome);
                                     System.out.println("Digite o novo telefone do funcionario:");
-                                    int novoTelefone = sc.nextInt();
+                                    long novoTelefone = sc.nextLong();
                                     funcionarios.get(i).setTelefone(novoTelefone);
-                                    System.out.println("Digite a nova função do funcionario (Administrador, Faxineiro, Instrutor, Recepcionista):");
-                                    String novaFuncao = sc.next();
-                                    TpFunc novaFuncaoEnum = TpFunc.valueOf(novaFuncao);
+                                    TpFunc novaFuncaoEnum = null;
+                                    while(novaFuncaoEnum == null){
+                                        System.out.println("Digite a nova função do funcionario: 1-Administrador 2-Faxineiro 3-Instrutor 4-Recepcionista");
+                                        if(sc.hasNextInt()){
+                                            int opcaoNovaFuncao = sc.nextInt();
+                                            switch(opcaoNovaFuncao){
+                                                case 1:
+                                                    novaFuncaoEnum = TpFunc.Administrador;
+                                                    break;
+                                                case 2:
+                                                    novaFuncaoEnum = TpFunc.Faxineiro;
+                                                    break;
+                                                case 3:
+                                                    novaFuncaoEnum = TpFunc.Instrutor;
+                                                    break;
+                                                case 4:
+                                                    novaFuncaoEnum = TpFunc.Recepcionista;
+                                                    break;
+                                                default:
+                                                    System.out.println("Essa opção não existe, tente novamente.");
+                                            }
+                                        } else {
+                                            sc.next();
+                                            System.out.println("Essa opção não existe, tente novamente.");
+                                        }
+                                    }
                                     funcionarios.get(i).setFuncao(novaFuncaoEnum);
                                     funcionarios.sort(Comparator.comparing(Funcionario::getNome, String.CASE_INSENSITIVE_ORDER));
                                 }
@@ -117,26 +182,44 @@ public class Programa{
                             break;
                 case 2:
                             System.out.println("Digite o cpf do aluno que deseja alterar:");
-                            int cpfAlterarAluno = sc.nextInt();
+                            long cpfAlterarAluno = sc.nextLong();
                             for(int i = 0; i < alunos.size(); i++){
                                 if(alunos.get(i).getCpf() == cpfAlterarAluno){
+                                    sc.nextLine();
                                     System.out.println("digite o novo nome do aluno:");
-                                    String novoNomeAluno = sc.next();
+                                    String novoNomeAluno = sc.nextLine();
                                     alunos.get(i).setNome(novoNomeAluno);
                                     System.out.println("Digite o novo telefone do aluno:");
-                                    int novoTelefoneAluno = sc.nextInt();
+                                    long novoTelefoneAluno = sc.nextLong();
                                     alunos.get(i).setTelefone(novoTelefoneAluno);
-                                    System.out.println("Digite o novo plano do aluno (Basico, Pro):");
-                                    String novoPlano = sc.next();
-                                    TpPlano novoPlanoEnum = TpPlano.valueOf(novoPlano);
+                                    TpPlano novoPlanoEnum = null;
+                                    while(novoPlanoEnum == null){
+                                        System.out.println("Digite o novo plano do aluno (Standard, Pro):");
+                                        String novoPlano = sc.next();
+                                        novoPlano = novoPlano.substring(0, 1).toUpperCase() + novoPlano.substring(1).toLowerCase();
+                                        try{
+                                            novoPlanoEnum = TpPlano.valueOf(novoPlano);
+                                        }catch(IllegalArgumentException e){
+                                            System.out.println("Essa opção não existe, tente novamente.");
+                                        }
+                                    }
                                     alunos.get(i).getPlano().setTpPlano(novoPlanoEnum);
-                                    System.out.println("Digite o novo tipo de pagamento do aluno (Debito, Credito, Pix):");
-                                    String novoTipoPagamento = sc.next();
-                                    TpPag novoTipoPagamentoEnum = TpPag.valueOf(novoTipoPagamento);
+                                    TpPag novoTipoPagamentoEnum = null;
+                                    while(novoTipoPagamentoEnum == null){
+                                        System.out.println("Digite o novo tipo de pagamento do aluno (Debito, Credito, Pix):");
+                                        String novoTipoPagamento = sc.next();
+                                        novoTipoPagamento = novoTipoPagamento.substring(0, 1).toUpperCase() + novoTipoPagamento.substring(1).toLowerCase();
+                                        try{
+                                            novoTipoPagamentoEnum = TpPag.valueOf(novoTipoPagamento);
+                                        }catch(IllegalArgumentException e){
+                                            System.out.println("Essa opção não existe, tente novamente.");
+                                        }
+                                    }
                                     alunos.get(i).getPlano().setTpPag(novoTipoPagamentoEnum);
                                     alunos.sort(Comparator.comparing(Aluno::getNome, String.CASE_INSENSITIVE_ORDER));
                                 }
                             }
+                            break;
 
                     }
                     break;
@@ -147,21 +230,23 @@ public class Programa{
                     switch(opcao4){
                         case 1:
                             System.out.println("Digite o cpf do funcionario que deseja remover:");
-                            int cpfRemoverFuncionario = sc.nextInt();
+                            long cpfRemoverFuncionario = sc.nextLong();
                             for(int i = 0; i < funcionarios.size(); i++){
                                 if(funcionarios.get(i).getCpf() == cpfRemoverFuncionario){
                                     funcionarios.remove(i);
                                     System.out.println("Funcionario removido");
+                                    break;
                                 }
                             }
                             break;
                 case 2:
                             System.out.println("Digite o cpf do aluno que deseja remover:");
-                            int cpfRemoverAluno = sc.nextInt();
+                            long cpfRemoverAluno = sc.nextLong();
                             for(int i = 0; i < alunos.size(); i++){
                                 if(alunos.get(i).getCpf() == cpfRemoverAluno){
                                     alunos.remove(i);
                                     System.out.println("Aluno removido");
+                                    break;
                                 }
                             }
                             break;
@@ -180,7 +265,7 @@ public class Programa{
                             int opcao5_1 = sc.nextInt();
                             switch (opcao5_1){
                                 case 1:
-                                    imprimirTabelaFuncionarios(funcionarios, TpFunc.Adimnistrador);
+                                    imprimirTabelaFuncionarios(funcionarios, TpFunc.Administrador);
                                     break;
                                 case 2:
                                     imprimirTabelaFuncionarios(funcionarios, TpFunc.Faxineiro);
@@ -210,7 +295,7 @@ public class Programa{
                     switch(opcao6){
                         case 1:
                             System.out.println("Digite o cpf do funcionario que deseja encontrar:");
-                            int cpfEncontrarFuncionario = sc.nextInt();
+                            long cpfEncontrarFuncionario = sc.nextLong();
                             for(int i = 0; i < funcionarios.size(); i++){
                                 if(funcionarios.get(i).getCpf() == cpfEncontrarFuncionario){
                                     System.out.println(funcionarios.get(i));
@@ -219,7 +304,7 @@ public class Programa{
                             break;
                 case 2:
                             System.out.println("Digite o cpf do aluno que deseja encontrar:");
-                            int cpfEncontrarAluno = sc.nextInt();
+                            long cpfEncontrarAluno = sc.nextLong();
                             for(int i = 0; i < alunos.size(); i++){
                                 if(alunos.get(i).getCpf() == cpfEncontrarAluno){
                                     System.out.println(alunos.get(i));
