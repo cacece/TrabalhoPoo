@@ -12,18 +12,20 @@ public class ControleFinanceiro {
         this.financeiro = financeiro;
     }
 
-    // repassa a chamada de entradas para a interface
-    public void mostrarEntradas(List<Aluno> alunos){
-        financeiro.listarEntradas(alunos);
+    public double calcularTotalEntradas(List<Aluno> alunos){
+        return financeiro.calcularTotalEntradas(alunos);
     }
 
-    // repassa a chamada de saidas para a interface
-    public void mostrarSaidas(List<Funcionario> funcionarios){
-        financeiro.listarSaidas(funcionarios);
+    public double calcularTotalSaidas(List<Funcionario> funcionarios){
+        return financeiro.calcularTotalSaidas(funcionarios);
     }
 
-    // repassa o calculo e exibicao do faturamento para a interface
-    public void mostrarFaturamento(List<Aluno> alunos, List<Funcionario> funcionarios){
-        financeiro.exibirFaturamento(alunos, funcionarios);
+    public double calcularFaturamento(List<Aluno> alunos, List<Funcionario> funcionarios){
+        return financeiro.calcularFaturamento(alunos, funcionarios);
+    }
+
+    @Override
+    public String toString(){
+        return "ControleFinanceiro: " + financeiro;
     }
 }

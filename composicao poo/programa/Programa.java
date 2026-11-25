@@ -315,15 +315,15 @@ public class Programa{
                     break;
                 // lista alunos com valor pago e total de entradas
                 case 6:
-                    controleFinanceiro.mostrarEntradas(alunos);
+                    imprimirTabelaEntradas(alunos, controleFinanceiro.calcularTotalEntradas(alunos));
                     break;
                 // lista funcionarios com salario e total de saidas
                 case 7:
-                    controleFinanceiro.mostrarSaidas(funcionarios);
+                    imprimirTabelaSaidas(funcionarios, controleFinanceiro.calcularTotalSaidas(funcionarios));
                     break;
                 // calcula e exibe o faturamento (entradas - saidas)
                 case 8:
-                    controleFinanceiro.mostrarFaturamento(alunos, funcionarios);
+                    imprimirFaturamento(controleFinanceiro.calcularTotalEntradas(alunos), controleFinanceiro.calcularTotalSaidas(funcionarios), controleFinanceiro.calcularFaturamento(alunos, funcionarios));
                     break;
                 // sai do programa
                 case 9:
@@ -358,5 +358,35 @@ public class Programa{
             }
         }
         System.out.println("-------------------------------------------------------------------------------");
+    }
+
+    public static void imprimirTabelaEntradas(List<Aluno> alunos, double totalEntradas){
+        System.out.println("Entradas (Receitas):");
+        System.out.println("---------------------------------------");
+        System.out.printf("%-22s | %-12s%n", "Aluno", "Valor Pago");
+        System.out.println("---------------------------------------");
+        for(int i = 0; i < alunos.size(); i++){
+            System.out.printf("%-22s | %-12.2f%n", alunos.get(i).getNome(), alunos.get(i).getPlano().getvalor());
+        }
+        System.out.println("---------------------------------------");
+        System.out.printf("Total de entradas: %.2f%n", totalEntradas);
+    }
+
+    public static void imprimirTabelaSaidas(List<Funcionario> funcionarios, double totalSaidas){
+        System.out.println("Saidas (Despesas):");
+        System.out.println("---------------------------------------");
+        System.out.printf("%-22s | %-12s%n", "Funcionario", "Salario");
+        System.out.println("---------------------------------------");
+        for(int i = 0; i < funcionarios.size(); i++){
+            System.out.printf("%-22s | %-12.2f%n", funcionarios.get(i).getNome(), funcionarios.get(i).getSalario());
+        }
+        System.out.println("---------------------------------------");
+        System.out.printf("Total de saidas: %.2f%n", totalSaidas);
+    }
+
+    public static void imprimirFaturamento(double totalEntradas, double totalSaidas, double faturamento){
+        System.out.printf("Total de entradas: %.2f%n", totalEntradas);
+        System.out.printf("Total de saidas: %.2f%n", totalSaidas);
+        System.out.printf("Faturamento (Saldo): %.2f%n", faturamento);
     }
 }

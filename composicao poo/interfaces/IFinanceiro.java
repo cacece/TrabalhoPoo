@@ -9,7 +9,4 @@ public interface IFinanceiro {
     public double calcularTotalEntradas(List<Aluno> alunos);
     public double calcularTotalSaidas(List<Funcionario> funcionarios);
     public double calcularFaturamento(List<Aluno> alunos, List<Funcionario> funcionarios);
-    public void listarEntradas(List<Aluno> alunos);
-    public void listarSaidas(List<Funcionario> funcionarios);
-    public void exibirFaturamento(List<Aluno> alunos, List<Funcionario> funcionarios);
 }
