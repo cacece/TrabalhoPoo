@@ -22,6 +22,7 @@ public class Programa{
         List<Aluno> alunos = new ArrayList<Aluno>();
         List<Funcionario> funcionarios = new ArrayList<Funcionario>();
         // cria o financeiro e injeta na classe de controle via interface
+        // Fluxo: Programa (faz o pedido) -> ControleFinanceiro (repassa via IFinanceiro) -> Financeiro (faz os cálculos e devolve) -> ControleFinanceiro -> Programa (exibe o resultado)
         IFinanceiro financeiro = new Financeiro();
         ControleFinanceiro controleFinanceiro = new ControleFinanceiro(financeiro);
 
